@@ -1,0 +1,23 @@
+# Task 7 Submission Checklist
+
+- [ ] `npm install` succeeds from clean checkout
+- [ ] `npm test` passes with 15+ tests
+- [ ] Backend unit tests cover at least two business-rule functions
+- [ ] Supertest covers register/login
+- [ ] Supertest covers unauthenticated protected route → 401
+- [ ] Supertest covers ownership violation → 403
+- [ ] React Testing Library covers search/filter
+- [ ] React Testing Library covers login validation states
+- [ ] Failed API call test shows a visible error state
+- [ ] Test data is isolated from development data
+- [ ] SQL uses parameterized queries only
+- [ ] `/api/auth/login` has rate limiting
+- [ ] Production CORS uses `FRONTEND_ORIGIN`, not `*`
+- [ ] Password hashing re-verified
+- [ ] JWT expiry and issuer validation re-verified
+- [ ] Role and ownership checks re-verified
+- [ ] `npm audit --audit-level=high` run and result documented
+- [ ] `SECURITY-AUDIT.md` maps all OWASP Top 10 categories
+- [ ] Before/after evidence captured for at least two fixes
+- [ ] `.env` is ignored and `.env.example` is committed
+- [ ] Test files are committed with source

@@ -1,0 +1,33 @@
+{
+  "name": "talentbridge-task7-security-testing",
+  "version": "2.0.0",
+  "private": true,
+  "workspaces": ["frontend"],
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js",
+    "migrate": "node src/config/migrate.js",
+    "seed": "node src/config/seed.js",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "jest --runInBand --detectOpenHandles",
+    "test:frontend": "npm --prefix frontend test -- --run",
+    "audit": "npm audit --audit-level=high",
+    "test:coverage": "jest --coverage --runInBand"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "node-cron": "^3.0.3",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "pg-mem": "^3.0.5",
+    "supertest": "^7.0.0"
+  }
+}

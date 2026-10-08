@@ -1,0 +1,84 @@
+openapi: 3.0.3
+info:
+  title: Internship Platform API
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /api/auth/register:
+    post:
+      summary: Register a student or company
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name,email,password]
+              properties:
+                name: {type: string}
+                email: {type: string}
+                password: {type: string}
+                role: {type: string, enum: [student,company]}
+      responses:
+        '201': {description: Created}
+        '409': {description: Email already exists}
+  /api/auth/login:
+    post:
+      summary: Login
+      responses:
+        '200': {description: Authenticated}
+        '401': {description: Invalid credentials}
+  /api/internships:
+    get:
+      summary: List internships
+      responses:
+        '200': {description: Success}
+    post:
+      security: [{bearerAuth: []}]
+      summary: Create internship
+      responses:
+        '201': {description: Created}
+        '400': {description: Invalid deadline}
+        '403': {description: Company role required}
+        '409': {description: Maximum active posting limit reached}
+  /api/applications:
+    post:
+      security: [{bearerAuth: []}]
+      summary: Apply to an internship
+      responses:
+        '201': {description: Application created}
+        '409': {description: Deadline passed, posting closed, or already applied}
+    get:
+      summary: Application routes
+  /api/applications/mine:
+    get:
+      security: [{bearerAuth: []}]
+      summary: Student's applications
+      responses:
+        '200': {description: Success}
+  /api/applications/company:
+    get:
+      security: [{bearerAuth: []}]
+      summary: Company's received applications
+      responses:
+        '200': {description: Success}
+  /api/applications/{id}/status:
+    patch:
+      security: [{bearerAuth: []}]
+      summary: Company changes application status
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: {type: integer}
+      responses:
+        '200': {description: Updated and notification attempted}
+        '403': {description: Not the owning company}
+        '409': {description: Business conflict}
